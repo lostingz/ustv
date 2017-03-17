@@ -13,9 +13,23 @@ import java.util.List;
 public class Episode {
     private String name;
     private String size;
-    private String type;
+    private String quality;
+    private String captions;
     private List<DownloadLink> linkList;
     private String summary;
+
+    public Episode(String name, List<DownloadLink> linkList) {
+        this.name = name;
+        this.linkList = linkList;
+    }
+
+    public Episode(String name, String size, String quality, String captions, List<DownloadLink> linkList) {
+        this.name = name;
+        this.size = size;
+        this.quality = quality;
+        this.captions = captions;
+        this.linkList = linkList;
+    }
 
     public String getName() {
         return name;
@@ -33,12 +47,20 @@ public class Episode {
         this.size = size;
     }
 
-    public String getType() {
-        return type;
+    public String getQuality() {
+        return quality;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setQuality(String quality) {
+        this.quality = quality;
+    }
+
+    public String getCaptions() {
+        return captions;
+    }
+
+    public void setCaptions(String captions) {
+        this.captions = captions;
     }
 
     public List<DownloadLink> getLinkList() {

@@ -4,9 +4,11 @@
  */
 package service;
 
+import java.io.IOException;
 import java.util.List;
 
 import model.SearchTypeEnum;
+import model.Season;
 import model.TV;
 
 /**
@@ -17,8 +19,17 @@ public interface TVService {
     /**
      * 根据名称和类型搜索资源
      * @param name 名称，支持中英文
-     * @param type 类型：TV美剧 SEED种子 MOVIE 电影
+     * @param type 类型：TV美剧 SEED种子
      * @return TVList
      */
-    List<TV> getTVList(String name, SearchTypeEnum type);
+    List<TV> getTVList(String name, SearchTypeEnum type) throws IOException;
+
+    /**
+     * 获取剧集
+     * @param url
+     * @param seasonNum 季数字,第一季填1
+     * @return Season
+     * @throws IOException
+     */
+    Season getSeason(String url, int seasonNum) throws IOException;
 }

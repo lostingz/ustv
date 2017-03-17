@@ -4,8 +4,6 @@
  */
 package model;
 
-import java.util.List;
-
 import util.Const;
 
 /**
@@ -19,8 +17,6 @@ public class TV {
     private String status;
     private String backDate;
     private String imgUrl;
-    private Season season;
-    private List<Episode> episodeList;
 
     public TV() {
     }
@@ -79,22 +75,6 @@ public class TV {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
-    }
-
-    public Season getSeason() {
-        return season;
-    }
-
-    public void setSeason(Season season) {
-        this.season = season;
-    }
-
-    public List<Episode> getEpisodeList() {
-        return episodeList;
-    }
-
-    public void setEpisodeList(List<Episode> episodeList) {
-        this.episodeList = episodeList;
     }
 
     @Override

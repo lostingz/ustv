@@ -10,6 +10,5 @@ package model;
  */
 public enum SearchTypeEnum {
     TV,
-    SEED,
-    MOVIE;
+    SEED;
 }

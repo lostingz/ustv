@@ -29,8 +29,10 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -38,7 +40,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author zhenggm<a href="mailto:zhenggm@chsi.com.cn">zhenggm</a>
  * @version $Id$
  */
-public class HtmlUtil {
+public class HtmlUtil{
     public static boolean isHttps(String url) {
         if (StringUtils.isBlank(url)) {
             throw new NullPointerException("url is blank");
@@ -51,7 +53,8 @@ public class HtmlUtil {
     }
 
     public static Document getDocument(String url) throws IOException {
-        return Jsoup.connect(url).userAgent(getRandomUserAgent()).timeout(200000).get();
+        Connection connection=Jsoup.connect(url).userAgent(getRandomUserAgent()).timeout(200000);
+        return connection.get();
     }
 
     public static HttpClient getHttpsClient() {
