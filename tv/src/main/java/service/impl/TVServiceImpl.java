@@ -53,12 +53,17 @@ public class TVServiceImpl implements TVService {
             Elements tds = seed.select("td");
             String name = tds.get(1).text();
             Element urlTag = tds.get(2).select("a").first();
-            String downloadUrl = urlTag.attr("href");
+            String downloadUrl="";
+            String type="";
+            if(urlTag!=null){
+                downloadUrl = urlTag.attr("href");
+                urlTag.attr("title");
+            }
             String size=tds.get(3).text();
             String qulity=tds.get(4).text();
             String captions=tds.get(5).text();
             List<DownloadLink> dowloadUrlList = Lists.newArrayList();
-            dowloadUrlList.add(new DownloadLink(urlTag.attr("title"), downloadUrl));
+            dowloadUrlList.add(new DownloadLink(type, downloadUrl));
             Episode episode = new Episode(name, size,qulity,captions,dowloadUrlList);
             episodeList.add(episode);
         }
