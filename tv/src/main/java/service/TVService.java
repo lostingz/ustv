@@ -32,4 +32,12 @@ public interface TVService {
      * @throws IOException
      */
     Season getSeason(String url, int seasonNum) throws IOException;
+
+    /**
+     * 获取排行榜
+     * @param num 个数
+     * @return
+     * @throws IOException
+     */
+    List<TV> getRankTopList(int num) throws IOException;
 }

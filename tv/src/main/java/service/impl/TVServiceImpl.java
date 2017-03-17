@@ -38,18 +38,7 @@ public class TVServiceImpl implements TVService {
             Document doc = HtmlUtil.getDocument(searchUrl);
             Elements trs = doc.select(".latesttable tbody tr");
             int size = trs.size();
-            if (size > 1) {
-                for (int i = 1; i < size - 1; i++) {
-                    Element tr = trs.get(i);
-                    Elements tds = tr.select("td");
-                    String tvName = tds.get(1).text();
-                    String url = Const.SITE + tds.select("a").first().attr("href");
-                    String status = tds.get(2).text();
-                    String updateDate = tds.get(3).text();
-                    String backDate = tds.get(4).text();
-                    result.add(new TV(tvName, url, updateDate, status, backDate));
-                }
-            }
+            result=getTvByTableHtml(trs, size);
         }
         return result;
     }
@@ -79,6 +68,32 @@ public class TVServiceImpl implements TVService {
         return season;
     }
 
+    @Override
+    public List<TV> getRankTopList(int startPageNum) throws IOException {
+        String base=Const.SITE+"/summary.html/index/p/"+startPageNum+".html";
+        Document doc=HtmlUtil.getDocument(base);
+        Elements trs = doc.select(".latesttable tbody tr");
+        int size = trs.size();
+        return getTvByTableHtml(trs, size);
+    }
+
+    private List<TV> getTvByTableHtml(Elements trs, int size) {
+        List<TV> result = new ArrayList<TV>();
+        if (size > 1) {
+            for (int i = 1; i < size - 1; i++) {
+                Element tr = trs.get(i);
+                Elements tds = tr.select("td");
+                String tvName = tds.get(1).text();
+                String url = Const.SITE + tds.select("a").first().attr("href");
+                String status = tds.get(2).text();
+                String updateDate = tds.get(3).text();
+                String backDate = tds.get(4).text();
+                result.add(new TV(tvName, url, updateDate, status, backDate));
+            }
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         TVServiceImpl tvService = new TVServiceImpl();
         try {
@@ -87,7 +102,9 @@ public class TVServiceImpl implements TVService {
                 TV tv = list.get(i);
                 Season season = tvService.getSeason(tv.getDetailUrl(), 1);
             }
-        } catch (Exception e) {
+            List<TV> result=tvService.getRankTopList(1);
+            System.out.println(result.size());
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
